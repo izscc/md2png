@@ -18,6 +18,11 @@ metadata:
 
 Use the bundled Python wrapper to send a local Markdown file to the hosted marknative render service, then write all returned PNG or SVG pages to local files.
 
+This skill is **remote-only**:
+- it defaults to `https://api.zscc.in/marknative`
+- it does not start any local renderer service
+- it does not bundle Bun, Docker, SQLite, or admin/backend code
+
 ## Workflow
 
 1. Confirm the user has provided a Markdown file path.
@@ -49,3 +54,4 @@ To obtain a usable key:
 
 - The hosted service may return multiple pages; always surface every output path.
 - The local files written by this skill are not auto-deleted.
+- This public skill only calls the hosted API and does not provide local end-to-end rendering.
