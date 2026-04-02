@@ -1,0 +1,4 @@
+interface:
+  display_name: "Marknative Renderer"
+  short_description: "Render Markdown files to PNG or SVG pages"
+  default_prompt: "Use $marknative-renderer to render a Markdown file into paginated PNG or SVG outputs."
