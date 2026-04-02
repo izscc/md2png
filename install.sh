@@ -13,24 +13,24 @@ CUSTOM_PATH=""
 
 usage() {
   cat <<'EOF'
-Install the marknative-renderer skill into one or more agent CLI skill directories.
+将 marknative-renderer 技能安装到一个或多个 Agent CLI 的技能目录。
 
-Usage:
+用法：
   bash install.sh [--all]
   bash install.sh --agent claude-code
   bash install.sh --agent opencode --agent openclaw
   bash install.sh --path ~/.claude/skills
 
-Options:
-  --agent <name>   Target agent: codex, claude-code, opencode, openclaw
-  --all            Install to all supported global agent directories
-  --path <dir>     Install into a custom skills root directory
-  --ref <ref>      Git ref to download from (default: main)
+参数：
+  --agent <name>   指定目标 Agent：codex、claude-code、opencode、openclaw
+  --all            安装到所有受支持的全局技能目录
+  --path <dir>     安装到自定义技能根目录
+  --ref <ref>      指定下载的 Git 引用（默认：main）
   --repo <owner/repo>
-                   GitHub repository to download from (default: izscc/md2png)
-  -h, --help       Show this help message
+                   指定下载的 GitHub 仓库（默认：izscc/md2png）
+  -h, --help       显示这段帮助信息
 
-Examples:
+示例：
   curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash
   curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash -s -- --agent claude-code
   curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash -s -- --all
@@ -42,12 +42,12 @@ info() {
 }
 
 fail() {
-  printf '[md2png] ERROR: %s\n' "$*" >&2
+  printf '[md2png] 错误：%s\n' "$*" >&2
   exit 1
 }
 
 require_cmd() {
-  command -v "$1" >/dev/null 2>&1 || fail "missing required command: $1"
+  command -v "$1" >/dev/null 2>&1 || fail "缺少必要命令：$1"
 }
 
 append_unique() {
@@ -93,7 +93,7 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     *)
-      fail "unknown argument: $1"
+      fail "未知参数：$1"
       ;;
   esac
 done
@@ -159,7 +159,7 @@ install_to_root() {
 }
 
 if [[ -n "$CUSTOM_PATH" ]]; then
-  info "installing to custom path: $CUSTOM_PATH"
+  info "安装到自定义路径：$CUSTOM_PATH"
   install_to_root "$CUSTOM_PATH"
 else
   if [[ ${#REQUESTED_AGENTS[@]} -eq 0 ]]; then
@@ -167,24 +167,24 @@ else
   fi
 
   for agent in "${REQUESTED_AGENTS[@]}"; do
-    root="$(agent_root "$agent")" || fail "unsupported agent: $agent"
-    info "installing for ${agent} -> ${root}"
+    root="$(agent_root "$agent")" || fail "不支持的 Agent：$agent"
+    info "为 ${agent} 安装 -> ${root}"
     install_to_root "$root"
   done
 fi
 
-printf '\nInstalled %s to:\n' "$SKILL_NAME"
+printf '\n已安装 %s 到：\n' "$SKILL_NAME"
 for target in "${INSTALLED_TARGETS[@]}"; do
   printf '  - %s\n' "$target"
 done
 
 cat <<EOF
 
-Next steps:
-  1. Export your API key:
+下一步：
+  1. 先设置 API 环境变量：
      export MARKNATIVE_API_URL="https://api.zscc.in/marknative"
      export MARKNATIVE_API_KEY="YOUR_KEY"
-  2. Restart your agent CLI if it is already running.
+  2. 如果 Agent CLI 已经在运行，请重启后再使用。
 
 API key获取说明：
   ${KEY_HINT}

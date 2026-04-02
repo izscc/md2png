@@ -7,6 +7,21 @@
 > - 不包含本地 Bun / Docker / SQLite / 管理后台 / 部署脚本  
 > - 不会在用户本地启动端到端渲染服务
 
+## 工作流程
+
+```mermaid
+flowchart LR
+    A["本地 Markdown 文件"] --> B["md2png Skill"]
+    B --> C["远程 API\nhttps://api.zscc.in/marknative"]
+    C --> D["分页 PNG / SVG 内容"]
+    D --> E["写回本地输出目录\n<文件名>.marknative/"]
+```
+
+说明：
+- Skill 只读取本地 `.md` 文件并发起远程请求
+- 真正的渲染发生在远程 API
+- 返回结果后，Skill 会把分页图片写回你的本地目录
+
 ## 一句话安装
 
 ### 通用 Shell 安装器
