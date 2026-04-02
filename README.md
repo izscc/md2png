@@ -4,6 +4,27 @@ Public Codex skill for rendering local Markdown files to paginated PNG or SVG th
 
 ## One-line install
 
+### Universal shell installer
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash
+```
+
+默认会安装到常见全局技能目录：
+- Codex: `~/.codex/skills`
+- Claude Code: `~/.claude/skills`
+- OpenCode: `~/.config/opencode/skills`
+- OpenClaw: 自动探测 `~/.openclaw/skills` / `~/.openclaw/workspace/skills` / `~/.moltbot/skills`
+
+如只安装给某一个 CLI：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash -s -- --agent claude-code
+curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash -s -- --agent opencode
+curl -fsSL https://raw.githubusercontent.com/izscc/md2png/main/install.sh | bash -s -- --agent openclaw
+```
+
+### Codex Python installer
 ```bash
 python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py --url https://github.com/izscc/md2png/tree/main/skills/marknative-renderer
 ```
